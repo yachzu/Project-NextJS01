@@ -1,10 +1,38 @@
 import React from 'react';
+import { Card } from '@/app/ui/dashboard/cards';
+import RevenueChart from '@/app/ui/dashboard/revenue-chart';
+import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
+import { fetchLatestInvoices, fetchRevenue, fetchCardData } from '../lib/data';
 
-export default function Home() {
-  return (
-    <div className="p-6 bg-white rounded-md shadow-md">
-      <h1 className="text-2xl font-bold mb-4">Selamat Datang, Admin!</h1>
-      <p className="text-gray-700">Ini adalah halaman selamat datang untuk admin.</p>
-    </div>
-  );
+
+export default async function Page() {
+  const revenue = await fetchRevenue();
+  const latestInvoices =await fetchLatestInvoices();
+  const {
+    numberOfInvoices,
+    numberOfCustomers,
+    totalPaidInvoices,
+    totalPendingInvoices,
+  } = await fetchCardData();
+ return (
+ <main>
+ <h1 className={`mb-4 text-xl md:text-2xl`}>
+ Dashboard
+ </h1>
+ <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+ {/* <Card title="Collected" value={totalPaidInvoices} type="collected" /> */}
+ {/* <Card title="Pending" value={totalPendingInvoices} type="pending" /> */}
+ {/* <Card title="Total Invoices" value={numberOfInvoices} type="invoices" /> */}
+ {/* <Card
+ title="Total Customers"
+ value={numberOfCustomers}
+ type="customers"
+ /> */}
+ </div>
+ <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
+ {/* <RevenueChart revenue={revenue} /> */}
+ {/* <LatestInvoices latestInvoices={latestInvoices} /> */}
+ </div>
+ </main>
+ );
 }
