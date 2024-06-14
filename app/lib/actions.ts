@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { signIn } from './auth';
+import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 
 
@@ -58,6 +58,7 @@ export async function updateInvoice(id: string, formData: FormData) {
     await sql`DELETE FROM invoices WHERE id = ${id}`;
     revalidatePath('/dashboard/invoices');
   }
+
   export async function authenticate(
     prevState: string | undefined,
     formData: FormData,
